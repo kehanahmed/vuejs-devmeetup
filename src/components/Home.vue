@@ -15,7 +15,7 @@
             v-for="meetup in meetups" 
             :src="meetup.imageUrl" 
             :key="meetup.id"
-            @click="onLoadMeetup(meetup.id)">
+            @click.native="onLoadMeetup(meetup.id)">
             <div class="title">
               {{meetup.title}}
             </div>
@@ -35,19 +35,12 @@
 
 <script>
 export default {
-  data () {
-    return {
-      meetups: [
-        { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
-          id: 'sadsbdqjwwqj12',
-          title: 'Meetup in New York' },
-        { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%c3%9Fen_Triumphbogen.jpg',
-          id: 'sdqweqwcdfvfe123',
-          title: 'Meetup in Paris' }
-      ]
+  computed: {
+    meetups () {
+      return this.$store.getters.featuredMeetups
     }
   },
-  method: {
+  methods: {
     onLoadMeetup (id) {
       this.$router.push('/meetups/' + id)
     }
